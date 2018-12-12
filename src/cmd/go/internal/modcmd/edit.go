@@ -338,6 +338,9 @@ func flagReplace(arg string) {
 	if err != nil {
 		base.Fatalf("go mod: -replace=%s: %v", arg, err)
 	}
+	if oldPath == "vendor" || newPath == "vendor" {
+		base.Fatalf("go mod: -replace=%s: you cannot replace into the vendor folder", arg)
+	}
 	if newPath == new && !modfile.IsDirectoryPath(new) {
 		base.Fatalf("go mod: -replace=%s: unversioned new path must be local directory", arg)
 	}
